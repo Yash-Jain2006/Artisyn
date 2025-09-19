@@ -2,12 +2,6 @@
 
 Gen AI Exchange hackathon project - A comprehensive platform for discovering local artisans, enhancing product images with AI, and connecting craft communities.
 
-## 🚀 Recent Updates
-
-### ✅ Fixed Issues
-- **Image Enhancement Error**: Fixed "Failed to fetch" error in the AI Image Enhancer
-- **Google Maps Integration**: Added comprehensive Google Maps integration to the Artisan Locator
-
 ### 🆕 New Features
 - **Enhanced Artisan Locator**: Interactive Google Maps with custom markers for different artisan types
 - **Smart Search**: Search by craft type, artisan name, or location with real-time filtering
@@ -41,71 +35,6 @@ Gen AI Exchange hackathon project - A comprehensive platform for discovering loc
 - Success stories
 - Partner collaborations
 
-## 🔧 Setup Instructions
-
-### 1. Google Maps API Key (Required for Artisan Locator)
-
-**Step 1: Get your API key**
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable these APIs:
-   - Maps JavaScript API
-   - Places API
-   - Geolocation API (optional)
-4. Go to "Credentials" → "Create Credentials" → "API Key"
-5. **Restrict your API key** (recommended):
-   - API restrictions: Select "Maps JavaScript API" and "Places API"
-   - HTTP referrers: Add your domain (e.g., `localhost:*` for testing)
-
-**Step 2: Configure the key**
-1. Open `config.js`
-2. Replace the placeholder:
-   ```javascript
-   GOOGLE_MAPS_API_KEY: 'your_actual_api_key_here'
-   ```
-
-**Step 3: Test it**
-- Open `index.html` in your browser
-- The Artisan Locator should show an interactive map
-- Try searching for "ceramics" or "woodworking"
-
-### 2. Backend Setup (For AI Image Enhancer)
-
-**Step 1: Install dependencies**
-```bash
-cd backend
-pip install -r requirements.txt
-```
-
-**Step 2: Start the server**
-```bash
-uvicorn main:app --host 127.0.0.1 --port 8000 --reload
-```
-
-**Step 3: Verify it's working**
-- Visit http://127.0.0.1:8000/docs
-- Try the image enhancer at `ai-enhancer.html`
-
-### 3. Local Development
-
-**Option A: Direct file access**
-```bash
-# Open index.html directly in browser
-start index.html  # Windows
-open index.html   # Mac
-```
-
-**Option B: Local server (recommended)**
-```bash
-# Python 3
-python -m http.server 8080
-
-# Node.js
-npx serve .
-
-# PHP
-php -S localhost:8080
-```
 
 ## 🗺️ Google Maps Features
 
@@ -126,24 +55,6 @@ Demo artisans in Boston area:
 - **Cambridge Glass Art** - Glass Blowing (4.7⭐)
 - **Textile Dreams** - Textile Arts (4.6⭐)
 
-## 🛠️ Troubleshooting
-
-### Google Maps Issues
-- **"API key required"**: Check `config.js` has your real API key
-- **Gray map**: Enable Maps JavaScript API in Google Cloud Console
-- **No search results**: Enable Places API
-- **Console errors**: Check API key restrictions and quotas
-
-### Image Enhancer Issues
-- **"Failed to fetch"**: ✅ **FIXED** - Make sure backend is running on port 8000
-- **Upload fails**: Check file size (25MB max) and format (JPG/PNG/WebP)
-- **CORS errors**: Use local server instead of file:// URLs
-
-### General Issues
-- **Broken links**: Make sure all files are in the correct locations
-- **JavaScript errors**: Check browser console (F12)
-- **Mobile issues**: Ensure responsive design is working
-
 ## 📁 File Structure
 
 ```
@@ -161,13 +72,6 @@ Artisyn/
 └── 📁 assets/            # Images and resources
 ```
 
-## 🔐 Security Notes
-
-- **Never commit API keys** to public repositories
-- **Restrict API keys** to specific domains in production
-- **Monitor usage** in Google Cloud Console to avoid unexpected charges
-- **Set billing alerts** for your Google Cloud project
-
 ## 🚀 Next Steps
 
 - [ ] Add more artisan sample data
@@ -179,5 +83,6 @@ Artisyn/
 - [ ] Add social sharing features
 
 ## 📝 License
+Educational and demonstration purposes - Gen AI Exchange hackathon project.
 
 Educational and demonstration purposes - Gen AI Exchange hackathon project.
