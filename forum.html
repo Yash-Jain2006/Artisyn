@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artisyn • Forum</title>
+  <link rel="icon" type="image/png" href="Favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .forum { max-width: 900px; margin: 0 auto; padding: 24px 16px 64px; }
+    .thread { background:#0b1225; border:1px solid #1f2937; color:#e2e8f0; border-radius:12px; padding:12px; }
+    .form { background:#111827; border:1px solid #1f2937; border-radius:12px; padding:12px; color:#e2e8f0; }
+    .input, .textarea { width:100%; background:#0f172a; color:#e2e8f0; border:1px solid #233047; border-radius:8px; padding:8px; }
+    .submit { background:#00f6b9; color:#0f172a; font-weight:800; border:none; border-radius:9999px; padding:8px 16px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <header class="py-6 px-8 flex items-center justify-between max-w-screen-xl mx-auto">
+    <div class="flex items-center gap-3"><span class="text-white font-bold text-xl">Artisyn</span></div>
+    <nav class="flex gap-4 text-white opacity-90">
+      <a href="index.html">Home</a>
+      <a href="ai-enhancer.html">AI Enhancer</a>
+      <a href="feed.html">Feed</a>
+      <a href="challenges.html">Challenges</a>
+      <a href="stories.html">Stories</a>
+      <a href="partners.html">Partners</a>
+    </nav>
+  </header>
+  <main class="forum">
+    <h1 class="text-white text-3xl font-extrabold mb-3">Community Forum</h1>
+
+    <section class="form mb-4">
+      <h2 class="text-xl font-bold mb-2">Start a thread</h2>
+      <div class="grid gap-2">
+        <input id="author" class="input" placeholder="Your name" />
+        <input id="title" class="input" placeholder="Title" />
+        <textarea id="body" class="textarea" rows="4" placeholder="Share a question, tip, or story..."></textarea>
+        <button id="submit" class="submit w-fit">Post</button>
+      </div>
+    </section>
+
+    <section id="threads" class="grid gap-3"></section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    const threadsEl = document.getElementById('threads');
+    const submit = document.getElementById('submit');
+
+    function render(){
+      const list = APP.getThreads();
+      threadsEl.innerHTML = list.map(t=> `
+        <article class="thread">
+          <div class="text-lg font-bold">${t.title}</div>
+          <div class="text-sm opacity-80">by ${t.author || 'Anonymous'} • ${new Date(t.createdAt).toLocaleString()}</div>
+          <p class="mt-2">${t.body}</p>
+        </article>
+      `).join('');
+    }
+
+    submit.addEventListener('click', ()=>{
+      const author = document.getElementById('author').value.trim();
+      const title = document.getElementById('title').value.trim();
+      const body = document.getElementById('body').value.trim();
+      if(!title || !body){ alert('Please provide a title and content.'); return; }
+      APP.addThread({ author, title, body });
+      document.getElementById('body').value = '';
+      render();
+    });
+
+    render();
+  </script>
+  <footer class="site-footer">
+    <div class="inner">
+      <div>© <span id="year"></span> Artisyn — Empowering local artisans.</div>
+      <div class="flex gap-4">
+        <a href="index.html">Home</a>
+        <a href="ai-enhancer.html">AI Enhancer</a>
+        <a href="feed.html">Feed</a>
+        <a href="challenges.html">Challenges</a>
+        <a href="stories.html">Stories</a>
+        <a href="partners.html">Partners</a>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

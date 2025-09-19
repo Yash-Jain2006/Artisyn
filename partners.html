@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artisyn • Partners</title>
+  <link rel="icon" type="image/png" href="Favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 64px; }
+    .card { background:#0b1225; border:1px solid #1f2937; border-radius:12px; color:#e2e8f0; padding:12px; }
+  </style>
+</head>
+<body>
+  <header class="py-6 px-8 flex items-center justify-between max-w-screen-xl mx-auto">
+    <div class="flex items-center gap-3"><span class="text-white font-bold text-xl">Artisyn</span></div>
+    <nav class="flex gap-4 text-white opacity-90">
+      <a href="index.html">Home</a>
+      <a href="ai-enhancer.html">AI Enhancer</a>
+      <a href="feed.html">Feed</a>
+      <a href="forum.html">Forum</a>
+      <a href="challenges.html">Challenges</a>
+      <a href="stories.html">Stories</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="text-white text-3xl font-extrabold mb-3">Partners & Collaborations</h1>
+    <div id="partners" class="grid gap-3"></div>
+  </main>
+
+  <script src="data.js"></script>
+  <script>
+    const el = document.getElementById('partners');
+    el.innerHTML = DATA.partners.map(p=>`
+      <article class="card">
+        <div class="text-lg font-bold">${p.name}</div>
+        <div class="opacity-80">${p.type}</div>
+        <p class="mt-2">${p.blurb}</p>
+        <a class="text-sky-300" href="${p.url}">Learn more →</a>
+      </article>
+    `).join('');
+  </script>
+  <footer class="site-footer">
+    <div class="inner">
+      <div>© <span id="year"></span> Artisyn — Empowering local artisans.</div>
+      <div class="flex gap-4">
+        <a href="index.html">Home</a>
+        <a href="ai-enhancer.html">AI Enhancer</a>
+        <a href="feed.html">Feed</a>
+        <a href="forum.html">Forum</a>
+        <a href="challenges.html">Challenges</a>
+        <a href="stories.html">Stories</a>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artisyn • AI Image Enhancer</title>
+  <link rel="icon" type="image/png" href="Favicon.png" />
+  <link rel="stylesheet" href="ai-enhancer.css" />
+</head>
+<body>
+  <div class="enhancer-page">
+    <!-- Header -->
+    <div class="enhancer-header">
+      <div class="enhancer-title">AI Image Enhancer</div>
+      <a class="back-link" href="index.html">← Back to home</a>
+    </div>
+
+    <!-- Main Card -->
+    <div class="enhancer-card">
+      <div class="enhancement-panel">
+        
+        <!-- Canvas Section -->
+        <div class="canvas-section">
+          <div class="canvas-wrap" id="wrap">
+            <canvas id="before"></canvas>
+            <div class="after-clip" id="clip">
+              <canvas id="after"></canvas>
+            </div>
+            <input id="range" class="range-full" type="range" min="0" max="100" value="50" aria-label="Reveal enhanced image" />
+            <div class="handle" id="handle"></div>
+
+            <!-- Processing Overlay -->
+            <div id="processingOverlay" class="overlay">Processing...</div>
+          </div>
+
+          <div class="legend"><span>Before</span><span>After</span></div>
+          <!-- Try a sample (moved into canvas area) -->
+          <div class="sample-area" style="margin-top:12px; text-align:center;">
+            <div style="display:inline-flex; align-items:center; gap:8px;">
+              <img id="sampleImg" src="AI-Image-Enhancer.jpeg" alt="sample" style="width:96px;height:96px;object-fit:cover;cursor:pointer;border-radius:6px;border:1px solid #ddd;" title="Click to load sample image" />
+              <div style="font-size:0.9rem;color:#444;text-align:left;">Click the image to load a sample vase</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <!-- Upload & Actions -->
+            <div class="control-group">
+              <h3>Image Controls</h3>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <label class="btn btn-primary">
+                  <input id="upload" type="file" accept="image/*" style="display:none;" />
+                  📁 Upload
+                </label>
+                <button id="btnEnhance" class="btn btn-primary">✨ Auto Enhance</button>
+                <button id="btnAiEnhance" class="btn btn-primary">🚀 AI Super Resolution</button>
+                <button id="btnReset" class="btn btn-secondary">↺ Reset</button>
+                <button id="btnDownload" class="btn btn-secondary">💾 Download</button>
+              </div>
+            </div>
+
+          
+
+          <!-- Presets -->
+          <div class="control-group">
+            <h3>Presets</h3>
+            <div class="preset-buttons">
+              <button class="btn btn-secondary" data-preset="auto">Auto</button>
+              <button class="btn btn-secondary" data-preset="portrait">Portrait</button>
+              <button class="btn btn-secondary" data-preset="landscape">Landscape</button>
+              <button class="btn btn-secondary" data-preset="product">Product</button>
+            </div>
+          </div>
+
+          <!-- Brightness & Contrast -->
+          <div class="control-group">
+            <h3>Brightness & Contrast</h3>
+            <div class="control-item">
+              <label for="brightness">Brightness</label>
+              <input type="range" id="brightness" class="slider" min="-50" max="50" value="0" />
+            </div>
+            <div class="control-item">
+              <label for="contrast">Contrast</label>
+              <input type="range" id="contrast" class="slider" min="0.5" max="2" value="1" step="0.01" />
+            </div>
+          </div>
+
+          <!-- Sharpness & Noise -->
+          <div class="control-group">
+            <h3>Image Quality</h3>
+            <div class="control-item">
+              <label for="sharpness">Sharpness</label>
+              <input type="range" id="sharpness" class="slider" min="0" max="2" value="1" step="0.05" />
+            </div>
+            <div class="control-item">
+              <label for="denoise">Noise Reduction</label>
+              <input type="range" id="denoise" class="slider" min="0" max="1" value="0.5" step="0.1" />
+            </div>
+          </div>
+
+          <!-- Colors -->
+          <div class="control-group">
+            <h3>Color Adjustments</h3>
+            <div class="control-item">
+              <label for="saturation">Saturation</label>
+              <input type="range" id="saturation" class="slider" min="0" max="2" value="1" step="0.1" />
+            </div>
+            <div class="control-item">
+              <label for="whiteBalance">White Balance</label>
+              <input type="range" id="whiteBalance" class="slider" min="0" max="1" value="1" step="0.1" />
+            </div>
+          </div>
+
+          <button id="btnApplyCustom" class="btn btn-primary" style="width:100%; margin-top:12px;">
+            Apply Custom Settings
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="inner">
+      <div>© <span id="year"></span> Artisyn — Empowering local artisans.</div>
+      <div class="flex gap-4">
+        <a href="index.html">Home</a>
+        <a href="feed.html">Feed</a>
+        <a href="forum.html">Forum</a>
+        <a href="challenges.html">Challenges</a>
+        <a href="stories.html">Stories</a>
+        <a href="partners.html">Partners</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="ai-enhancer.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

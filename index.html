@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artisyn Landing Page</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="Favicon.png" />
+  <link rel="shortcut icon" type="image/png" href="Favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Background Globe (fixed) -->
+  <div id="bg-globe" aria-hidden="true"></div>
+
+  <header class="py-6 px-8 flex items-center justify-between max-w-screen-xl mx-auto content-layer">
+    <div class="flex items-center gap-3">
+      <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#00F6B9" d="M9.1 48 41 5.5l13.3 19.6L25.6 46.8z"></path>
+        <path fill="#37FFE1" d="m43.7 30.5-9 13.4 18.1 3.3z"></path>
+      </svg>
+      <span class="text-white font-bold text-xl select-none">Artisyn</span>
+    </div>
+    <nav class="topnav">
+      <a href="ai-enhancer.html">AI Enhancer</a>
+      <a href="feed.html">Feed</a>
+      <a href="forum.html">Forum</a>
+      <a href="challenges.html">Challenges</a>
+      <a href="stories.html">Stories</a>
+      <a href="partners.html">Partners</a>
+    </nav>
+  </header>
+
+  <main class="max-w-screen-xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-3 gap-10 min-h-[85vh] content-layer">
+    <!-- Left Content -->
+    <section class="text-left lg:col-span-1 flex flex-col justify-center gap-6 pt-6">
+      <h1 class="text-white font-extrabold text-4xl sm:text-5xl leading-tight">
+        Artisyn: <br /> Crafting the Future of <br /> Local Commerce
+      </h1>
+      <button class="glow-button w-fit" aria-label="Join the Revolution">
+        Join the Revolution
+      </button>
+    </section>
+
+    <!-- Center column for overlay stats/cards -->
+    <section class="relative flex justify-center items-center lg:col-span-1">
+      <!-- Trending Artisans -->
+      <div class="stats-card absolute top-6 left-1/4 -translate-x-1/2 max-w-xs">
+        <h4>Trending Artisans</h4>
+        <div class="stats-label"><span class="green-dot"></span> Supply Chains</div>
+        <canvas id="chartSupplyChains"></canvas>
+      </div>
+
+      <!-- Popular Crafts -->
+      <div class="stats-card absolute bottom-6 left-1/4 -translate-x-1/2 max-w-xs">
+        <h4>Popular Crafts</h4>
+        <canvas id="chartPopularCrafts"></canvas>
+      </div>
+    </section>
+
+    <!-- Right side cards -->
+    <section class="flex flex-col gap-8 lg:col-span-1 pt-8 items-center lg:items-start">
+      <!-- AI Image Enhancement (teaser) -->
+      <div class="ai-enhancement">
+        <h3>AI Image Enhancement</h3>
+        <p>Make artisan product photos look crisp and professional with one click.</p>
+        <a href="ai-enhancer.html" class="teaser-link">
+          <img src="assets/artisan-pot.jpg" onerror="this.onerror=null;this.src='AI-Image-Enhancer.jpeg';" alt="AI Enhancer sample" class="sample-thumb" />
+          <div class="teaser-row slider-labels">
+            <span>See demo</span><span>Open →</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Artisan Locator -->
+      <div class="locator">
+        <h4>Artisan Locator</h4>
+        <p class="text-sm text-slate-400 mb-3">Find local artisans near you</p>
+        <input type="search" class="search-input" placeholder="Search artisans, crafts, or places..." aria-label="Search artisans or places" />
+        <div class="map-container relative">
+          <div id="map" class="w-full h-full rounded-lg"></div>
+          <div id="map-loading" class="absolute inset-0 flex items-center justify-center bg-slate-200 rounded-lg" style="display: none;">
+            <div class="text-slate-600">Loading map...</div>
+          </div>
+        </div>
+        <div class="mt-2 text-xs text-slate-400">
+          🔍 Search by craft type (ceramics, woodworking, etc.) or artisan name
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="inner flex flex-col sm:flex-row justify-between items-center">
+      <div>© <span id="year"></span> Artisyn — Empowering local artisans.</div>
+    </div>
+  </footer>
+
+
+  <!-- Top right button -->
+  <button class="top-right-circle-btn" aria-label="Profile settings" title="Profile settings">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="12" cy="7" r="4" />
+      <path d="M6 21v-2a4 4 0 0 1 8 0v2" />
+    </svg>
+  </button>
+
+  <!-- Config -->
+  <script src="config.js"></script>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <!-- Google Maps API - dynamic config -->
+  <script>
+    (function() {
+      const script = document.createElement('script');
+      const apiKey = window.CONFIG && window.CONFIG.GOOGLE_MAPS_API_KEY !== 'YOUR_GOOGLE_MAPS_API_KEY_HERE'
+        ? window.CONFIG.GOOGLE_MAPS_API_KEY
+        : 'YOUR_GOOGLE_MAPS_API_KEY_HERE';
+
+      if (apiKey === 'YOUR_GOOGLE_MAPS_API_KEY_HERE') {
+        console.warn('⚠️ Please set your Google Maps API key in config.js');
+        document.getElementById('map-loading').style.display = 'flex';
+        document.getElementById('map-loading').innerHTML = '<div class="text-red-500">⚠️ Google Maps API key required</div>';
+        return;
+      }
+
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <!-- Globe Background (Spline) -->
+  <script>
+    (function(){
+      const container = document.getElementById('bg-globe');
+      if(!container) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://my.spline.design/holographicearthwithdynamiclines-DQhFe5yH1DboXb414eeeuFHm/';
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('aria-hidden', 'true');
+      container.appendChild(iframe);
+    })();
+  </script>
+</body>
+</html>

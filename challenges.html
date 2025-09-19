@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artisyn • Challenges</title>
+  <link rel="icon" type="image/png" href="Favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 64px; }
+    .box { background:#0b1225; border:1px solid #1f2937; border-radius:12px; color:#e2e8f0; padding:12px; }
+    .input, .textarea, select { width:100%; background:#0f172a; color:#e2e8f0; border:1px solid #233047; border-radius:8px; padding:8px; }
+    .btn { background:#00f6b9; color:#0f172a; font-weight:800; border:none; border-radius:9999px; padding:8px 16px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <header class="py-6 px-8 flex items-center justify-between max-w-screen-xl mx-auto">
+    <div class="flex items-center gap-3"><span class="text-white font-bold text-xl">Artisyn</span></div>
+    <nav class="flex gap-4 text-white opacity-90">
+      <a href="index.html">Home</a>
+      <a href="ai-enhancer.html">AI Enhancer</a>
+      <a href="feed.html">Feed</a>
+      <a href="forum.html">Forum</a>
+      <a href="stories.html">Stories</a>
+      <a href="partners.html">Partners</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="text-white text-3xl font-extrabold mb-3">Custom Challenges</h1>
+
+    <section class="grid md:grid-cols-2 gap-4">
+      <div class="box">
+        <h2 class="text-xl font-bold mb-2">Describe your project</h2>
+        <textarea id="desc" class="textarea" rows="6" placeholder="e.g., Need 25 engraved brass kalash for a wedding, eco-friendly finish."></textarea>
+        <button id="gen" class="btn mt-2">Generate brief</button>
+      </div>
+      <div class="box">
+        <h2 class="text-xl font-bold mb-2">AI generated brief</h2>
+        <textarea id="brief" class="textarea" rows="10" placeholder="Brief will appear here..."></textarea>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <select id="lang" class="input" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="ta">Tamil</option>
+            <option value="bn">Bengali</option>
+          </select>
+          <button id="translate" class="btn">Translate</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const gen = document.getElementById('gen');
+    const translate = document.getElementById('translate');
+
+    gen.addEventListener('click', () => {
+      const v = document.getElementById('desc').value.trim();
+      const sustainableHint = v.match(/eco|sustain|green|organic/i) ? '\nPriority: Source from eco-friendly artisans.' : '';
+      const draft = `Challenge Summary\n\nGoal: ${v || 'A custom artisan project.'}\nDeliverables: Photos + Short Story + Estimated cost range\nTimeline: 2-3 weeks\nBudget: Flexible\n${sustainableHint}\n\nContact: Include material preferences and location for better matches.`;
+      document.getElementById('brief').value = draft;
+    });
+
+    const dict = {
+      hi: { 'Challenge Summary': 'चैलेंज सारांश', 'Goal': 'उद्देश्य', 'Deliverables': 'डिलीवेरेबल्स', 'Timeline': 'समय सीमा', 'Budget': 'बजट', 'Priority: Source from eco-friendly artisans.': 'प्राथमिकता: पर्यावरण के अनुकूल कारीगरों से प्राप्त करें।', 'Contact: Include material preferences and location for better matches.': 'संपर्क: बेहतर मैच के लिए सामग्री पसंद और स्थान शामिल करें।' },
+      ta: { 'Challenge Summary': 'சவால் சுருக்கம்', 'Goal': 'இலக்கு', 'Deliverables': 'கையளிப்புகள்', 'Timeline': 'காலவரை', 'Budget': 'செலவுத்திட்டம்', 'Priority: Source from eco-friendly artisans.': 'முன்னுரிமை: சூழல் நட்பு கலைஞர்களிடமிருந்து பெறவும்.', 'Contact: Include material preferences and location for better matches.': 'தொடர்பு: சிறந்த பொருத்தங்களுக்காக பொருள் விருப்பங்கள் மற்றும் இடத்தை சேர்க்கவும்.' },
+      bn: { 'Challenge Summary': 'চ্যালেঞ্জ সারাংশ', 'Goal': 'লক্ষ্য', 'Deliverables': 'ডেলিভারেবল', 'Timeline': 'সময়সীমা', 'Budget': 'বাজেট', 'Priority: Source from eco-friendly artisans.': 'অগ্রাধিকার: পরিবেশবান্ধব কারিগরদের থেকে সংগ্রহ করুন।', 'Contact: Include material preferences and location for better matches.': 'যোগাযোগ: ভাল মিলের জন্য উপাদানের পছন্দ এবং অবস্থান অন্তর্ভুক্ত করুন।' }
+    };
+
+    translate.addEventListener('click', () => {
+      const lang = document.getElementById('lang').value;
+      if(lang==='en'){ return; }
+      const src = document.getElementById('brief').value;
+      const map = dict[lang] || {};
+      let out = src;
+      Object.keys(map).forEach(k=>{ out = out.replaceAll(k, map[k]); });
+      document.getElementById('brief').value = out;
+    });
+  </script>
+  <footer class="site-footer">
+    <div class="inner">
+      <div>© <span id="year"></span> Artisyn — Empowering local artisans.</div>
+      <div class="flex gap-4">
+        <a href="index.html">Home</a>
+        <a href="ai-enhancer.html">AI Enhancer</a>
+        <a href="feed.html">Feed</a>
+        <a href="forum.html">Forum</a>
+        <a href="stories.html">Stories</a>
+        <a href="partners.html">Partners</a>
+      </div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
